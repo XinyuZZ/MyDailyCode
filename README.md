@@ -1,2 +1,2 @@
 # MyDailyCode
-Synchronous Daily Code for Back Up
+Synchronize Daily Code for Back Up
