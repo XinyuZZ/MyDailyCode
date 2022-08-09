@@ -1,0 +1,105 @@
+/*
+ * Student Name: ZHU Xinyu
+ * Student ID: 57017355
+ */
+package s2122.test02;
+
+
+// import packages as needed
+
+
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+/**
+ * A multi-thread server program that encodes text message using RLE.
+ */
+class RLEServer57017355 implements Runnable {
+    // You can add additional data fields and methods as needed
+    private Socket socket;
+
+    public RLEServer57017355(Socket socket) {
+        this.socket = socket;
+    }
+
+    /**
+     * This method opens a server socket and listen at port 55500. It passes
+     * each incoming connection to a separated thread to run, so that
+     * multiple client requests can be handled concurrently.
+     */
+    public static void main(String[] args) {
+        int port = 55500;
+        ServerSocket server;
+        try {
+            server = new ServerSocket(port);
+            while (true) {
+                Socket socket = server.accept();
+                new Thread(new RLEServer57017355(socket)).start();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * This method processes the original text message in each client request, encodes it and
+     * sends the compressed text back to the client.
+     */
+    @Override
+    public void run() {
+        BufferedReader in = null;
+        PrintWriter out = null;
+        try {
+            in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+            out = new PrintWriter(this.socket.getOutputStream(), true);
+            String ans = encode(in.readLine());
+            out.println(ans);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Encode the original message using Run-Length Encoding (RLE).
+     *
+     * @param original the original message sent by the client
+     * @return the RLE-encoded message
+     */
+    public static String encode(String original) {
+        String compressed = new String();
+        char[] charArray = original.toCharArray();
+        char before = 0;
+
+        int num = 0;
+        int i = 0;
+
+        for (char c : charArray) {
+            if (c != before && i != 0) {
+                if (num >= 2) {
+                    compressed += before;
+                    compressed += before;
+                    compressed += num;
+                } else {
+                    compressed += before;
+                }
+                num = 1;
+            } else {
+                num++;
+            }
+            before = c;
+            i++;
+        }
+
+        if (num >= 2) {
+            compressed += before;
+            compressed += before;
+            compressed += num;
+        } else {
+            compressed += before;
+        }
+
+        return compressed;
+    }
+}
+
