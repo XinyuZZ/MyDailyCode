@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -30,3 +31,37 @@ public class DimensionMismatchException extends Exception {
         this.secondMatrix = secondMatrix;
     }    
 }
+=======
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.lab06.src.lab06;
+
+/**
+ *
+ * @author vanting
+ */
+public class DimensionMismatchException extends Exception {
+    
+    private Matrix firstMatrix;
+    private Matrix secondMatrix;
+
+    public Matrix getFirstMatrix() {
+        return firstMatrix;
+    }
+
+    public void setFirstMatrix(Matrix firstMatrix) {
+        this.firstMatrix = firstMatrix;
+    }
+
+    public Matrix getSecondMatrix() {
+        return secondMatrix;
+    }
+
+    public void setSecondMatrix(Matrix secondMatrix) {
+        this.secondMatrix = secondMatrix;
+    }    
+}
+>>>>>>> 13eedf8f55122829bb6e261a489d63bcd721fa8e
